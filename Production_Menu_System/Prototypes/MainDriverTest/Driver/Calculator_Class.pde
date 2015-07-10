@@ -44,31 +44,37 @@ class Calculator implements MenuItem {
   int columnThreeOffset = 100;
   int columnFourOffset = 150;
   int columnFiveOffset = 200;
+  PImage pic = loadImage("Calc Button.jpg");
+  PImage pic2 = loadImage("Big Calc Button.jpg");
+  PImage pic3 = loadImage("Huge Calc Button.jpg");
+  PImage pic4 = loadImage("Massive Calc Button.jpg");
   Calculator(State mainState) {
     fill(0);
     f = createFont("Arial", 16 ,true); // Arial, 16 point, anti-aliasing on
     textFont(f);
+    fill(color(0,255,123));
+    stroke(color(0,255,123));
     hello = "hello from calc.display();";
 
-    one =      new Button(new Point(xOne, yOne + columnThreeOffset),                  new Point(xTwo, yTwo + rowThreeOffset), "1");
-    two =      new Button(new Point(xOne + rowTwoOffset, yOne + rowThreeOffset),      new Point(xTwo + columnTwoOffset, yTwo + rowThreeOffset), "2");
-    three =    new Button(new Point(xOne + columnThreeOffset, yOne + rowThreeOffset), new Point(xTwo + columnThreeOffset, yTwo + rowThreeOffset), "3");
-    four =     new Button(new Point(xOne, yOne + rowTwoOffset),                       new Point(xTwo, yTwo + rowTwoOffset), "4");
-    five =     new Button(new Point(xOne + columnTwoOffset, yOne + rowTwoOffset),     new Point(xTwo + columnTwoOffset, yTwo + rowTwoOffset), "5");
-    six =      new Button(new Point(xOne + rowThreeOffset, yOne + columnTwoOffset),   new Point(xTwo + columnThreeOffset, yTwo + rowTwoOffset), "6");
-    seven =    new Button(new Point(xOne, yOne),                                      new Point(xTwo, yTwo), "7");
-    eight =    new Button(new Point(xOne + columnTwoOffset, yOne),                    new Point(xTwo + columnTwoOffset, yTwo), "8");
-    nine =     new Button(new Point(xOne + columnThreeOffset, yOne),                  new Point(xTwo + columnThreeOffset, yTwo), "9");
+    one =      new Button(new Point(xOne, yOne + columnThreeOffset),                  new Point(xTwo, yTwo + rowThreeOffset), "1", pic);
+    two =      new Button(new Point(xOne + rowTwoOffset, yOne + rowThreeOffset),      new Point(xTwo + columnTwoOffset, yTwo + rowThreeOffset), "2", pic);
+    three =    new Button(new Point(xOne + columnThreeOffset, yOne + rowThreeOffset), new Point(xTwo + columnThreeOffset, yTwo + rowThreeOffset), "3", pic);
+    four =     new Button(new Point(xOne, yOne + rowTwoOffset),                       new Point(xTwo, yTwo + rowTwoOffset), "4", pic);
+    five =     new Button(new Point(xOne + columnTwoOffset, yOne + rowTwoOffset),     new Point(xTwo + columnTwoOffset, yTwo + rowTwoOffset), "5", pic);
+    six =      new Button(new Point(xOne + rowThreeOffset, yOne + columnTwoOffset),   new Point(xTwo + columnThreeOffset, yTwo + rowTwoOffset), "6", pic);
+    seven =    new Button(new Point(xOne, yOne),                                      new Point(xTwo, yTwo), "7", pic);
+    eight =    new Button(new Point(xOne + columnTwoOffset, yOne),                    new Point(xTwo + columnTwoOffset, yTwo), "8", pic);
+    nine =     new Button(new Point(xOne + columnThreeOffset, yOne),                  new Point(xTwo + columnThreeOffset, yTwo), "9", pic);
 
-    zero =     new Button(new Point(xOne, yOne + rowFourOffset), new Point(xTwo + rowThreeOffset, yTwo + rowFourOffset), "0");
-    equals =   new Button(new Point(xOne + columnFourOffset, yOne + rowFourOffset), new Point(xTwo + columnFourOffset + columnTwoOffset, yTwo + rowFourOffset), "=");
+    zero =     new Button(new Point(xOne, yOne + rowFourOffset), new Point(xTwo + rowThreeOffset, yTwo + rowFourOffset), "0", pic3);
+    equals =   new Button(new Point(xOne + columnFourOffset, yOne + rowFourOffset), new Point(xTwo + columnFourOffset + columnTwoOffset, yTwo + rowFourOffset), "=", pic2);
 
-    add =      new Button(new Point(xOne + columnFourOffset, yOne + rowTwoOffset),   new Point(xTwo + columnFourOffset, yTwo + rowTwoOffset), "+");
-    subtract = new Button(new Point(xOne + columnFourOffset, yOne + rowThreeOffset), new Point(xTwo + columnFourOffset, yTwo + rowThreeOffset), "-");
-    multiply = new Button(new Point(xOne + columnFiveOffset, yOne + rowTwoOffset),   new Point(xTwo + columnFiveOffset, yTwo + rowTwoOffset), "*");
-    divide =   new Button(new Point(xOne + columnFiveOffset, yOne + rowThreeOffset), new Point(xTwo + columnFiveOffset, yTwo + rowThreeOffset), "/");
-    clear =    new Button(new Point(xOne + columnFiveOffset, yOne),                  new Point(xTwo + columnFiveOffset, yTwo), "C");
-    signChange=new Button(new Point(xOne + columnFourOffset, yOne),                  new Point(xTwo + columnFourOffset, yTwo), "+/-");
+    add =      new Button(new Point(xOne + columnFourOffset, yOne + rowTwoOffset),   new Point(xTwo + columnFourOffset, yTwo + rowTwoOffset), "+", pic);
+    subtract = new Button(new Point(xOne + columnFourOffset, yOne + rowThreeOffset), new Point(xTwo + columnFourOffset, yTwo + rowThreeOffset), "-", pic);
+    multiply = new Button(new Point(xOne + columnFiveOffset, yOne + rowTwoOffset),   new Point(xTwo + columnFiveOffset, yTwo + rowTwoOffset), "*", pic);
+    divide =   new Button(new Point(xOne + columnFiveOffset, yOne + rowThreeOffset), new Point(xTwo + columnFiveOffset, yTwo + rowThreeOffset), "/", pic);
+    clear =    new Button(new Point(xOne + columnFiveOffset, yOne),                  new Point(xTwo + columnFiveOffset, yTwo), "C", pic);
+    signChange=new Button(new Point(xOne + columnFourOffset, yOne),                  new Point(xTwo + columnFourOffset, yTwo), "+/-", pic);
 
     extraB =   new Button(new Point(xOne, yOne), new Point(xTwo, yTwo));
     extraC =   new Button(new Point(xOne, yOne), new Point(xTwo, yTwo));
@@ -76,7 +82,7 @@ class Calculator implements MenuItem {
   }
   
   public void display(){
-    println(hello);
+
     one.drawButton();
     two.drawButton();
     three.drawButton();
@@ -94,11 +100,10 @@ class Calculator implements MenuItem {
     clear.drawButton();
     signChange.drawButton();
     zero.drawButton();
-    line(xOne, yOne, xOne, yOne - 50);
-    line(xOne, yOne - 50, xOne + 250, yOne - 50);
-    line(xOne + 250, yOne - 50, xOne + 250, yOne);
-    line(xOne, yOne, xOne + 250, yOne);
-    text(displayNumber, xOne + 5, yOne - 5); //light + 5 buffers
+    fill(color(0,255,123));
+    stroke(color(0,255,123));
+    image(pic4, xOne - 1, yOne - 50 - 1);
+    text(displayNumber, xOne + 10, yOne - 18); //light + 5 buffers
   }
   
   public void touched(int x,int y) {

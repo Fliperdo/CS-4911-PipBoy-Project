@@ -14,7 +14,7 @@ class Weather implements MenuItem {
   }
   
   void display(){
-    println(hello);
+    //println(hello);
     wg.requestWeather();
     weather = wg.getWeather();
     temp = wg.getTemp();
@@ -69,7 +69,7 @@ class WeatherGrabber {
   
   void getPostalNumber() {
     if(!queriedBefore) { 
-      try {
+      try {  
         String url = "http://ipinfo.io/json";
         String[] lines = loadStrings(url);
         if (lines == null) {
@@ -80,7 +80,7 @@ class WeatherGrabber {
         String end = "\"";
         zip = int(giveMeTextBetween(xml,lookfor,end));
         queriedBefore = true;
-      } catch (IOException e) {
+      } catch (Exception e) {
         zip = defaultZip;
       }
     }
@@ -89,22 +89,26 @@ class WeatherGrabber {
   // Make the actual XML request
   void requestWeather() {
     getPostalNumber();
-    // Get all the HTML/XML source code into an array of strings
-    // (each line is one element in the array)
     String url = "http://xml.weather.yahoo.com/forecastrss?p=" + zip;
-    String[] lines = loadStrings(url);
-    
+    String[] lines;
+    try {
+      lines = loadStrings(url);
+    } catch (Exception e) {
+      return; //we cant access the internet
+    }
     // Turn array into one long String
-    String xml = join(lines, "" ); 
+    if (lines != null) {
+      String xml = join(lines, "" ); 
     
-    // Searching for weather condition
-    String lookfor = "<yweather:condition  text=";
-    String end = "\"";
-    weather = giveMeTextBetween(xml,lookfor,end);
+      // Searching for weather condition
+      String lookfor = "<yweather:condition  text=";
+      String end = "\"";
+      weather = giveMeTextBetween(xml,lookfor,end);
     
-    // Searching for temperature
-    lookfor = "temp=\"";
-    temperature = int(giveMeTextBetween (xml,lookfor,end));
+      // Searching for temperature
+      lookfor = "temp=\"";
+      temperature = PApplet.parseInt(giveMeTextBetween (xml,lookfor,end));
+    }
   }
   
   // A function that returns a substring between two substrings

@@ -19,7 +19,7 @@ class MP3 implements MenuItem {
   }
   
   void display(){
-    println(hello);
+//    println(hello);
     skipForward.drawButton();
     skipBackward.drawButton();
     if (mainState.isPlayingMusic()) {

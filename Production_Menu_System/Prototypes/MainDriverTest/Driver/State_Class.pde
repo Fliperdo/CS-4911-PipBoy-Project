@@ -12,6 +12,7 @@ class State {
   int caloriesBurntFromSteps = 0;
   boolean clickNoticed = true;
   Point click;
+  String currentChannel = "";
   boolean changeAMorFM = false;
   boolean channelUp = false;
   boolean channelDown = false;
@@ -21,6 +22,14 @@ class State {
   Minim minim;
   AudioPlayer[] songs;
   PImage cameraImage;
+  boolean lightChanged = false;
+  boolean isLightOn = false;
+  int lightBrightness = 50;
+  boolean changeOfColor = false;
+  boolean changeOfBrightness;
+  char redLevel = 100;
+  char blueLevel = 100;
+  char greenLevel = 100;
   
   State() {
     hello = "hello from state.update()";
@@ -28,21 +37,49 @@ class State {
   }
   
   void update(){
+    readSerialPort();
     updatePageIndex();
     updateStepCount();
     updateCalories();
     updateRadio();
     updateMusic();
-    updateCameraImage();
     //println(hello);
   }
   
-  void updatePageIndex() {
-    if (piConnected) {
-    
-    } else {
-      //use key interrupts to update state.
+  void readSerialPort() {
+    int newLine = 10; //ASCII
+    String codeDataString = null;
+    String myString;
+    if (myPort.available() > 0) {
+      myString = myPort.readStringUntil(newLine);
+      if (myString != null) {
+        println(myString);
+        if (myString.contains("STP")) {
+          stepCount++;
+        } else if (myString.contains("CHN")) {
+          String temp = myString.substring(3, 7); //definitely 3 -- CHN#
+          String a = Character.toString(temp.charAt(0));
+          String b = Character.toString(temp.charAt(1));
+          String c = Character.toString(temp.charAt(2));
+          String d = Character.toString(temp.charAt(3));
+          if (temp.charAt(0) == '0')
+          {            
+            currentChannel = b +  c + "." + d;
+          }
+          else 
+          {
+            currentChannel = a + b + c + "." + d;
+          }
+          println(currentChannel);
+        } else {
+          println("Possible Read Error");
+        }
+      }
     }
+  }
+  
+  void updatePageIndex() {
+    //can use key/button interupts here if hardware exists
   }
   int LEFT  = 37;
   int RIGHT = 39;
@@ -89,15 +126,6 @@ class State {
   }
     
   void updateStepCount(){
-    if(piConnected) {
-      //step = READ(pinForStep);
-      //if step != oldStep {
-        //stepCount++;
-      //}
-      //oldStep = step;
-    } else {
-      stepCount = 6969;
-    }
   }
   
   void updateCalories(){
@@ -148,14 +176,17 @@ class State {
   void updateRadio() {
     if (channelUp) {
       println("Send channelUp code to Ard");
+      myPort.write("CHS+\n");
       channelUp = false; 
     }
     if (channelDown) {
       println("Send channelDown code to Ard");
+      myPort.write("CHS-\n");
       channelDown = false;  
     }
     if (changeAMorFM) {
       println("Send alternateFM_AM code to Ard");
+      myPort.write("AFM\n");
       changeAMorFM = false;
     }
   }
@@ -184,7 +215,6 @@ class State {
     }
     if (playingMusic) {
 
-      changeAMorFM = false;
     }
   }
     
@@ -197,10 +227,12 @@ class State {
   }
   
   void playMusic() {
+    myPort.write("MUT\n");
     playingMusic = true;
   }
   
   void pauseMusic() {
+    myPort.write("MUT\n");
     playingMusic = false;
   }
   
@@ -223,5 +255,86 @@ class State {
     return null;
   }
   
+  void updateLight() {
+    if (lightChanged) {
+      if (isLightOn) {
+        myPort.write("LOF\n");
+      } else {
+        if (!isLightOn) {
+        myPort.write("LON\n");
+        }
+        lightChanged = false;
+      }
+    }
+    if (changeOfBrightness) {
+      myPort.write("BRT" + char(lightBrightness) + "\n");
+      changeOfBrightness = false;
+    }
+    if (changeOfColor) {
+      myPort.write("RGB" + redLevel + greenLevel + blueLevel + "\n"); //http://www.tutorialspoint.com/java/java_string_getbytes.htm
+      changeOfColor = false;
+    }
+    //if light has changed on off send code
+    //if RGB changed send RGB code change
+    //if birghtness changed send RGB code change
+  }
+  
+  void lightOn() {
+    isLightOn = true;
+    lightChanged = true;
+  }
+  
+  void lightOff() {
+    isLightOn = false;
+    lightChanged = true;
+  }
+  
+  void lightBrightness(int change) {
+    lightBrightness = lightBrightness + change;
+    if (lightBrightness > 100) {
+      lightBrightness = 100;
+    }
+    if (lightBrightness < 0) {
+      lightBrightness = 0;
+    }
+    changeOfBrightness = true;
+  }
+  
+  void redLevel(int change) {
+    redLevel =char( redLevel + char(change));
+    if (redLevel > 255) {
+      redLevel = 255;
+    }
+    if (redLevel < 0) {
+      redLevel = 0;
+    }
+    changeOfColor = true;
+  }    
+
+  void blueLevel(int change) {
+    blueLevel =char( blueLevel + (char) change);
+    if (blueLevel > 255) {
+      blueLevel = 255;
+    }
+    if (blueLevel < 0) {
+      blueLevel = 0;
+    }
+    changeOfColor = true;
+  }
+
+  void greenLevel(int change) {
+    greenLevel = char(greenLevel + change);
+    if (greenLevel > 255) {
+      greenLevel = 255;
+    }
+    if (greenLevel < 0) {
+      greenLevel = 0;
+    }
+    changeOfColor = true;
+  }  
+  
+  void partyMode() {
+    myPort.write("PMD\n");
+  }
 }
 

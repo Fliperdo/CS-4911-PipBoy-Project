@@ -1,3 +1,4 @@
+//change thingy
 class Calorie implements MenuItem {
   String hello;
   int steps = 0;
@@ -8,6 +9,9 @@ class Calorie implements MenuItem {
   Calorie(State mainState) {
     hello = "hello from Calorie.display();";
     this.mainState = mainState;
+    f = createFont( "Georgia" ,16,true);
+    textFont(f);
+    fill(0);
     plus50 = new Button(new Point(50, 50), new Point(100,100));
     
     //
@@ -19,13 +23,10 @@ class Calorie implements MenuItem {
     
     //
     //
-    f = createFont( "Georgia" ,16,true);
-    textFont(f);
-    fill(0);
   }
   
   void display(){
-    println(hello);
+//    println(hello);
     steps = mainState.getStepCount();
     text("Your step count is: " + steps, 100, 40);
     text("Your calories burnt are: " + mainState.getCalories(), 200, 100);

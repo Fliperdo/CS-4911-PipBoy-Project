@@ -22,3 +22,5 @@ class Camera implements MenuItem {
   
 }
 
+//CAPTURE CLASS
+

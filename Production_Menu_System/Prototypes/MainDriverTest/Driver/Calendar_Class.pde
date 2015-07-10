@@ -6,7 +6,7 @@ class Calendar implements MenuItem {
   }
   
   void display(){
-    println(hello);
+//    println(hello);
   }
   
   void touched(int x,int y){

@@ -1,6 +1,10 @@
 import java.lang.management.*;
 import ddf.minim.*;
 import gifAnimation.*;
+import processing.serial.*;
+import java.util.Calendar;
+
+Serial myPort;
 Minim minim;
 
 MainDriver PipBoyMenu;
@@ -9,6 +13,9 @@ void setup()
 {
     size(800,480);
     minim = new Minim(this);
+    //need to handle case of no serial port
+    myPort = new Serial(this, Serial.list()[0], 9600);
+    println(Serial.list()[0]);
     PipBoyMenu = new MainDriver();
 }
 void draw() 
@@ -47,6 +54,9 @@ void keyPressed () {
 }
 
 void mousePressed() {
-  println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
   PipBoyMenu.getState().click(mouseX, mouseY);
+}
+
+boolean sketchFullScreen() {
+  return false;
 }

@@ -17,7 +17,6 @@ class Radio implements MenuItem {
   }
   
   void display() {
-    println(hello);
     channelUp.drawButton();
     channelDown.drawButton();
     changeToFM.drawButton();
