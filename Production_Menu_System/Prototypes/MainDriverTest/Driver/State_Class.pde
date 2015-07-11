@@ -43,10 +43,12 @@ class State {
     updateCalories();
     updateRadio();
     updateMusic();
+    updateLight();
     //println(hello);
   }
   
   void readSerialPort() {
+    if (myPort != null) {
     int newLine = 10; //ASCII
     String codeDataString = null;
     String myString;
@@ -75,6 +77,7 @@ class State {
           println("Possible Read Error");
         }
       }
+    }
     }
   }
   
@@ -147,6 +150,10 @@ class State {
     caloriesBurnt = caloriesBurnt + cals;
   }
   
+  void removeCalories(int cals) {
+    caloriesBurnt -= cals;
+  }
+  
   void resetCalories() {
     caloriesBurnt = 0;
   }
@@ -176,17 +183,17 @@ class State {
   void updateRadio() {
     if (channelUp) {
       println("Send channelUp code to Ard");
-      myPort.write("CHS+\n");
+      if (myPort != null){myPort.write("CHS+\n");}
       channelUp = false; 
     }
     if (channelDown) {
       println("Send channelDown code to Ard");
-      myPort.write("CHS-\n");
+      if (myPort != null){myPort.write("CHS-\n");}
       channelDown = false;  
     }
     if (changeAMorFM) {
       println("Send alternateFM_AM code to Ard");
-      myPort.write("AFM\n");
+      if (myPort != null){myPort.write("AFM\n");}
       changeAMorFM = false;
     }
   }
@@ -227,12 +234,12 @@ class State {
   }
   
   void playMusic() {
-    myPort.write("MUT\n");
+    if (myPort != null){myPort.write("MUT\n");}
     playingMusic = true;
   }
   
   void pauseMusic() {
-    myPort.write("MUT\n");
+    if (myPort != null){myPort.write("MUT\n");}
     playingMusic = false;
   }
   
@@ -258,20 +265,20 @@ class State {
   void updateLight() {
     if (lightChanged) {
       if (isLightOn) {
-        myPort.write("LOF\n");
+        if (myPort != null){myPort.write("LOF\n");}
       } else {
         if (!isLightOn) {
-        myPort.write("LON\n");
+        if (myPort != null){myPort.write("LON\n");}
         }
         lightChanged = false;
       }
     }
     if (changeOfBrightness) {
-      myPort.write("BRT" + char(lightBrightness) + "\n");
+      if (myPort != null){myPort.write("BRT" + char(lightBrightness) + "\n");}
       changeOfBrightness = false;
     }
     if (changeOfColor) {
-      myPort.write("RGB" + redLevel + greenLevel + blueLevel + "\n"); //http://www.tutorialspoint.com/java/java_string_getbytes.htm
+      if (myPort != null) {myPort.write("RGB" + redLevel + greenLevel + blueLevel + "\n"); }//http://www.tutorialspoint.com/java/java_string_getbytes.htm
       changeOfColor = false;
     }
     //if light has changed on off send code
@@ -334,7 +341,7 @@ class State {
   }  
   
   void partyMode() {
-    myPort.write("PMD\n");
+    if (myPort != null){myPort.write("PMD\n");}
   }
 }
 

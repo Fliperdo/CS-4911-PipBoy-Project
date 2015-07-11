@@ -16,6 +16,14 @@ class Button {
     this.bottomRight = bottomRight;
     this.innerText = text;
   }
+
+  Button(Point topLeft, Point bottomRight, String text, int textSize) {
+    this.topLeft = topLeft;
+    this.bottomRight = bottomRight;
+    this.innerText = text;
+    this.textSize = textSize;
+    f = createFont("Arial",textSize,true);
+  }
   
   Button(Point topLeft, Point bottomRight, String text, PImage pic) {
     this.topLeft = topLeft;
@@ -34,6 +42,7 @@ class Button {
   
   boolean wasClicked(int x, int y) {
     if (topLeft.getX() < x && topLeft.getY() < y && bottomRight.getX() > x && bottomRight.getY() > y) {
+      println(innerText);
       return true;
     } else {
       return false;

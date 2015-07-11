@@ -10,6 +10,7 @@ class System implements MenuItem {
   TextBox heapUsage;
   TextBox javaVersion;
   TextBox systemLoadAvg;
+  TextBox currentTime;
   
   System(State mainState) {
     hello = "hello from System.display();";
@@ -32,8 +33,11 @@ class System implements MenuItem {
     
     upTime = new TextBox(new Point(topRightCornerX - widthOfUptimeBox, topRightCornerY), new Point(topRightCornerX, topRightCornerY + heightOfTextBox), "Up Time: " + (runBean.getUptime()/1000/60) % 60 + ":" + (runBean.getUptime()/1000) % 60);
     upTime.drawTextBox();
-    //Calendar refresh = new Calendar();
-//    currentTime = new TextBox(new Point(width/2. height/2), new Point(width/2 + 100, height/2 + 100), refresh.HOUR + ":" + refresh.MINUTE + ":" + refresh.SECOND);
+    java.util.Calendar refresh = new GregorianCalendar();
+    /*currentTime = new TextBox(new Point(400/2, 400/2), new Point(400/2 + 150, 400/2 + 50)*/
+    textSize(80);
+    text("" + Integer.toString(refresh.get(java.util.Calendar.HOUR)+12) + ":" + Integer.toString(refresh.get(java.util.Calendar.MINUTE)) + ":"  + Integer.toString(refresh.get(java.util.Calendar.SECOND)), width/2 -150, height/2 + 25);
+//    currentTime.drawTextBox();
   }
   
   void touched(int x,int y){

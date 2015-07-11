@@ -3,7 +3,8 @@ import ddf.minim.*;
 import gifAnimation.*;
 import processing.serial.*;
 import java.util.Calendar;
-
+import java.util.GregorianCalendar;
+import java.text.SimpleDateFormat;
 Serial myPort;
 Minim minim;
 
@@ -14,8 +15,8 @@ void setup()
     size(800,480);
     minim = new Minim(this);
     //need to handle case of no serial port
-    myPort = new Serial(this, Serial.list()[0], 9600);
-    println(Serial.list()[0]);
+    //myPort = new Serial(this, Serial.list()[0], 9600);
+    //println(Serial.list()[0]);
     PipBoyMenu = new MainDriver();
 }
 void draw() 
