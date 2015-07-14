@@ -1,25 +1,30 @@
 class MP3 implements MenuItem {
-  AudioPlayer firstSound;
   String hello;
   Button skipForward;
   Button skipBackward;
   Button play;
   Button pause;
-  String currentSong;
   State mainState;
+  int buttonSize = 100;
+  
+  Point pausePlayTopLeft = new Point(165,300);
+  Point skipBackTopLeft = new Point(pausePlayTopLeft.getX() + 150, 300);
+  Point skipForwardTopLeft = new Point(pausePlayTopLeft.getX() + 300, 300);
+
+  Point ppBR = new Point(pausePlayTopLeft.getX()   + buttonSize, pausePlayTopLeft.getY()   + buttonSize);
+  Point sfBR = new Point(skipForwardTopLeft.getX() + buttonSize, skipForwardTopLeft.getY() + buttonSize);
+  Point sbBR = new Point(skipBackTopLeft.getX()    + buttonSize, skipBackTopLeft.getY()    + buttonSize);
   
   MP3(State mainState) {
-    firstSound = minim.loadFile("Fallout 3 Soundtrack Civilization (Bingo Bango Bongo)_bgDF2xfcbv8_youtube.mp3");
     hello = "hello from mp3.display();";
     this.mainState = mainState;
-    skipForward      = new Button(new Point(150,100) , new Point(200,150), ">>");
-    skipBackward     = new Button(new Point(150,155), new Point(200,205), "<<");
-    play             = new Button(new Point(150,210) , new Point(200,260), "|>");
-    pause            = new Button(new Point(150,210) , new Point(200,260), "||");
+    skipForward      = new Button(skipForwardTopLeft, sfBR, ">>");
+    skipBackward     = new Button(skipBackTopLeft, sbBR, "<<");
+    play             = new Button(pausePlayTopLeft, ppBR, "|>");
+    pause            = new Button(pausePlayTopLeft, ppBR, "||");
   }
   
   void display(){
-//    println(hello);
     skipForward.drawButton();
     skipBackward.drawButton();
     if (mainState.isPlayingMusic()) {
@@ -27,6 +32,8 @@ class MP3 implements MenuItem {
     } else {
       play.drawButton();
     }
+    textSize(30);
+    text(songNames[mainState.currentSong % songNames.length], width/2 - songNames[mainState.currentSong % songNames.length].length() * 9, height/2);
   }
   
   void touched(int x,int y){
@@ -39,12 +46,10 @@ class MP3 implements MenuItem {
     if(!mainState.isPlayingMusic()) {
       if (play.wasClicked(x,y)) {
         mainState.playMusic();
-        firstSound.play();
       }
     } else {
       if (pause.wasClicked(x,y)) {
         mainState.pauseMusic();
-        firstSound.pause();
       }
     }
   }

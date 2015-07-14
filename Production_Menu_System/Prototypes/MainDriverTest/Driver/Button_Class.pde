@@ -3,6 +3,7 @@ class Button {
   Point bottomRight;
   String innerText = "";
   int textSize = 18;
+  int options = 0;
   PFont f = createFont("Arial",textSize,true); // Arial, 16 point, anti-aliasing on
   PImage pic;
   
@@ -23,6 +24,16 @@ class Button {
     this.innerText = text;
     this.textSize = textSize;
     f = createFont("Arial",textSize,true);
+  }
+
+  Button(Point topLeft, Point bottomRight, String text, int textSize, int options) {
+    this.topLeft = topLeft;
+    this.bottomRight = bottomRight;
+    this.innerText = text;
+    this.textSize = textSize;
+    f = createFont("Arial",textSize,true);
+    int borderless = 1;
+    this.options = borderless;
   }
   
   Button(Point topLeft, Point bottomRight, String text, PImage pic) {
@@ -62,10 +73,12 @@ class Button {
       image(pic, topLeft.getX(), topLeft.getY());
       text(innerText, ((topLeft.getX() + bottomRight.getX()) / 2) - (innerText.length() * textSize / 4), ((topLeft.getY() + bottomRight.getY()) / 2) + textSize /2);
     } else {
-      line(topLeft.getX(), topLeft.getY(), topLeft.getX(), bottomRight.getY()); //line from top left to bottom left
-      line(topLeft.getX(), topLeft.getY(), bottomRight.getX(), topLeft.getY()); //line from top left to top right
-      line(bottomRight.getX(), bottomRight.getY(), bottomRight.getX(), topLeft.getY()); //line from bottom right to 
-      line(bottomRight.getX(), bottomRight.getY(), topLeft.getX(), bottomRight.getY());
+      if(options != 1) {
+        line(topLeft.getX(), topLeft.getY(), topLeft.getX(), bottomRight.getY()); //line from top left to bottom left
+        line(topLeft.getX(), topLeft.getY(), bottomRight.getX(), topLeft.getY()); //line from top left to top right
+        line(bottomRight.getX(), bottomRight.getY(), bottomRight.getX(), topLeft.getY()); //line from bottom right to 
+        line(bottomRight.getX(), bottomRight.getY(), topLeft.getX(), bottomRight.getY());
+      }
       text(innerText, ((topLeft.getX() + bottomRight.getX()) / 2) - (innerText.length() * textSize / 4), ((topLeft.getY() + bottomRight.getY()) / 2) + textSize /2);
     }
   }

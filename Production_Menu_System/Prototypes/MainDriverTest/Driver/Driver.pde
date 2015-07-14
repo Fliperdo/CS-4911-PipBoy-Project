@@ -7,6 +7,12 @@ import java.util.GregorianCalendar;
 import java.text.SimpleDateFormat;
 Serial myPort;
 Minim minim;
+AudioPlayer firstSong;
+String song1Name = "Bingo Bango Bongo.mp3";
+AudioPlayer secondSong;
+String song2Name = "World On Fire.mp3";
+AudioPlayer[] songs;
+String[] songNames;
 
 MainDriver PipBoyMenu;
 
@@ -18,6 +24,10 @@ void setup()
     //myPort = new Serial(this, Serial.list()[0], 9600);
     //println(Serial.list()[0]);
     PipBoyMenu = new MainDriver();
+    firstSong = minim.loadFile(song1Name);
+    secondSong = minim.loadFile(song2Name);
+    songs = new AudioPlayer[] {firstSong, secondSong};
+    songNames = new String[] {song1Name, song2Name};
 }
 void draw() 
 {

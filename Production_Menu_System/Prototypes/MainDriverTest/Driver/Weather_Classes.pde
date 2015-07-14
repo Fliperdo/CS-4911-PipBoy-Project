@@ -4,6 +4,11 @@ class Weather implements MenuItem {
   String weather;
   int temp;
   PFont f;
+   PImage CloudyWeather = loadImage("Cloudy.jpg");
+  PImage RainyWeather = loadImage("Rainy.jpg");
+  PImage SnowyWeather = loadImage("Snowy.jpg");
+  PImage StormyWeather = loadImage("Stormy.jpg");
+  PImage SunnyWeather = loadImage("Sunny.jpg");
   
   Weather(State mainState) {
     hello = "hello from Weather.display();";
@@ -18,12 +23,31 @@ class Weather implements MenuItem {
     wg.requestWeather();
     weather = wg.getWeather();
     temp = wg.getTemp();
-    text(wg.getZip(),10,160);
-    text(weather,10,90);
-    text(temp,10,40);
+    f = createFont( "Georgia" ,30,true);
+    textFont(f);
+    text(wg.getZip(), 100,200);
+    text(weather, 100, 300);
+    text("Temp:" + temp, 100, 400);
+    if(weather.contains("Thunderstorms")) {
+      image(StormyWeather, 350, 120);
+    }
+    if(weather.contains("Cloudy")) {
+      image(CloudyWeather, 350, 120);
+    }
+    if(weather.contains("Snow")) {
+      image(SnowyWeather, 350, 120);
+    }
+    if(weather.contains("Sunny") || weather.contains("Fair")) {
+      image(SunnyWeather, 350, 120);
+    }
+    if(weather.contains("Showers")) {
+      image(RainyWeather, 350, 120);
+    }
+    
   }
   
   void touched(int x,int y){
+    //reset button for weather
   }
   
   
@@ -79,6 +103,7 @@ class WeatherGrabber {
         String lookfor = "postal\": \"";
         String end = "\"";
         zip = int(giveMeTextBetween(xml,lookfor,end));
+        zip = 30144;
         queriedBefore = true;
       } catch (Exception e) {
         zip = defaultZip;
@@ -101,10 +126,9 @@ class WeatherGrabber {
       String xml = join(lines, "" ); 
     
       // Searching for weather condition
-      String lookfor = "<yweather:condition  text=";
+      String lookfor = "<yweather:condition  text=\"";
       String end = "\"";
       weather = giveMeTextBetween(xml,lookfor,end);
-    
       // Searching for temperature
       lookfor = "temp=\"";
       temperature = PApplet.parseInt(giveMeTextBetween (xml,lookfor,end));

@@ -14,14 +14,32 @@ class UI {
   PImage Background = loadImage("Background.jpg");
   PImage TaperedBorder = loadImage("TaperdGreenBorder.png");
   PImage SolidBorder = loadImage("SolidGreenBorder.png");
+  PImage CloudyWeather = loadImage("Cloudy.jpg");
+  PImage RainyWeather = loadImage("Rainy.jpg");
+  PImage SnowyWeather = loadImage("Snowy.jpg");
+  PImage StormyWeather = loadImage("Stormy.jpg");
+  PImage SunnyWeather = loadImage("Sunny.jpg");
+  Button entertainmentMode;
+  Button statsMode;
+  Button toolsMode;
+  Button subCategoryRight;
+  Button subCategoryLeft;
+  
   
   UI(State state) {
     hello = "hello from ui.disply";
     mainState = state;
     image(Background, 0,0);  
+    //800X480
     entertainment = new MenuItem[] {new MP3(mainState), new Radio(mainState), new Camera(mainState)};
     stats = new MenuItem[] {new System(mainState), new Calorie(mainState), new Weather(mainState)};
     tools = new MenuItem[] {new Calendar(mainState), new Calculator(mainState), new Checklist(mainState), new Flashlight(mainState), new Map(mainState)};
+    statsMode         = new Button(new Point(75, 400),  new Point(250, 440), "Stats", 24);
+    toolsMode         = new Button(new Point(300, 400), new Point(475, 440), "Tools", 24);
+    entertainmentMode = new Button(new Point(525, 400), new Point(700, 440), "Entertainment", 24);
+
+    subCategoryRight  = new Button(new Point(800 - 50, 100), new Point(800, 400), ">>", 24, 1);
+    subCategoryLeft   = new Button(new Point(0, 100), new Point(50, 400), "<<", 24, 1);
   }
   
   void display() {
@@ -45,7 +63,27 @@ class UI {
     if(mainState.hasClick()){
       x.touched(mainState.getClick().getX(), mainState.getClick().getY());
       mainState.registerClick();
+      if        (statsMode.wasClicked(mainState.getClick().getX(), mainState.getClick().getY())) {
+        mainState.updatePageIndex('Z');
+      } else if (entertainmentMode.wasClicked(mainState.getClick().getX(), mainState.getClick().getY())) {
+        mainState.updatePageIndex('C');
+      } else if (toolsMode.wasClicked(mainState.getClick().getX(), mainState.getClick().getY())) {
+        mainState.updatePageIndex('X');
+      } else if (subCategoryRight.wasClicked(mainState.getClick().getX(), mainState.getClick().getY())) {
+         mainState.updatePageIndex(RIGHT);
+      } else if (subCategoryLeft.wasClicked(mainState.getClick().getX(), mainState.getClick().getY())) {
+         mainState.updatePageIndex(LEFT);
+      }
+      //check if UI buttons got clicked.
+      //need UI buttons
     }
+//    800 X 480
+
+    entertainmentMode.drawButton();
+    statsMode.drawButton();
+    toolsMode.drawButton();
+    subCategoryLeft.drawButton();
+    subCategoryRight.drawButton();
     //System.out.println(hello);
     //System.out.println(pipState.getCurrentPageIndex());
     //System.out.println(pipState.getCurrentCategoryIndex());

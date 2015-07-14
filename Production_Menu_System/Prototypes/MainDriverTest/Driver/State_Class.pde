@@ -20,7 +20,6 @@ class State {
   boolean prevSong = false;
   boolean playingMusic = false;
   Minim minim;
-  AudioPlayer[] songs;
   PImage cameraImage;
   boolean lightChanged = false;
   boolean isLightOn = false;
@@ -30,7 +29,7 @@ class State {
   char redLevel = 100;
   char blueLevel = 100;
   char greenLevel = 100;
-  
+  int currentSong = 0;
   State() {
     hello = "hello from state.update()";
     assignSongs();
@@ -42,7 +41,6 @@ class State {
     updateStepCount();
     updateCalories();
     updateRadio();
-    updateMusic();
     updateLight();
     //println(hello);
   }
@@ -209,37 +207,31 @@ class State {
   void alternateAMorFM() {
     changeAMorFM = true;
   }
-  
-  
-  void updateMusic() {
-    if (nextSong) {
-
-      channelUp = false; 
-    }
-    if (prevSong) {
-
-      channelDown = false;  
-    }
-    if (playingMusic) {
-
-    }
-  }
-    
+   
   void nextSong() {
-    nextSong = true;
+    songs[currentSong % songs.length].pause();
+    currentSong++;
+    songs[currentSong % songs.length].rewind();    
+    songs[currentSong % songs.length].play();    
   }
   
   void prevSong() {
-    prevSong = true;
+    songs[currentSong % songs.length].pause();
+    currentSong--;
+    songs[currentSong % songs.length].rewind();    
+    songs[currentSong % songs.length].play();    
   }
   
   void playMusic() {
     if (myPort != null){myPort.write("MUT\n");}
+    println(currentSong % songs.length);
+    songs[currentSong % songs.length].play();    
     playingMusic = true;
   }
   
   void pauseMusic() {
     if (myPort != null){myPort.write("MUT\n");}
+    songs[currentSong % songs.length].pause();
     playingMusic = false;
   }
   
