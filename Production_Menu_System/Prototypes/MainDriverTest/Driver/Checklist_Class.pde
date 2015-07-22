@@ -18,7 +18,9 @@ class Checklist implements MenuItem {
     lines = loadStrings(url);
  //   println(hello);
     for (int i = 0; i < lines.length; i ++) {
-      text(lines[i], 10, i*15 + 10);
+      if (i < 10) {
+        text( Integer.toString(i + 1) + ") " + lines[i], 50, i*textSize*2 + 100);
+      }
     }
   }
   

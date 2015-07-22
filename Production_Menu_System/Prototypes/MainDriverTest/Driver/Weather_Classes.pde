@@ -25,23 +25,23 @@ class Weather implements MenuItem {
     temp = wg.getTemp();
     f = createFont( "Georgia" ,30,true);
     textFont(f);
-    text(wg.getZip(), 100,200);
-    text(weather, 100, 300);
-    text("Temp:" + temp, 100, 400);
+    text(wg.getZip(), 100,150);
+    text(weather, 100, 225);
+    text("Temp:" + temp, 100, 300);
     if(weather.contains("Thunderstorms")) {
-      image(StormyWeather, 350, 120);
+      image(StormyWeather, 350, 100);
     }
     if(weather.contains("Cloudy")) {
-      image(CloudyWeather, 350, 120);
+      image(CloudyWeather, 350, 100);
     }
     if(weather.contains("Snow")) {
-      image(SnowyWeather, 350, 120);
+      image(SnowyWeather, 350, 100);
     }
     if(weather.contains("Sunny") || weather.contains("Fair")) {
-      image(SunnyWeather, 350, 120);
+      image(SunnyWeather, 350, 100);
     }
     if(weather.contains("Showers")) {
-      image(RainyWeather, 350, 120);
+      image(RainyWeather, 350, 100);
     }
     
   }

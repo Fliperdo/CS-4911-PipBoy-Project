@@ -29,8 +29,8 @@ class Calculator implements MenuItem {
   int displayNumber = 0;
   int numberBeforeOp = 0;
   
-  int xOne = 200;
-  int yOne = 200;
+  int xOne = 275;
+  int yOne = 150;
   int squareButtonSize = 50;
   int xTwo = xOne + squareButtonSize;
   int yTwo = yOne + squareButtonSize;

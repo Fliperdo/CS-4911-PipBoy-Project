@@ -7,7 +7,7 @@ class UI {
   MenuItem[] entertainment;
   int entertainmentSize = 3;
   MenuItem[] tools;
-  int toolsSize = 5;
+  int toolsSize = 3;
   MenuItem[] stats;
   int statsSize = 3;
   State mainState;
@@ -19,6 +19,8 @@ class UI {
   PImage SnowyWeather = loadImage("Snowy.jpg");
   PImage StormyWeather = loadImage("Stormy.jpg");
   PImage SunnyWeather = loadImage("Sunny.jpg");
+  PImage menuCategoryButtons = loadImage("menuCategoryButtons.jpg");
+
   Button entertainmentMode;
   Button statsMode;
   Button toolsMode;
@@ -33,10 +35,11 @@ class UI {
     //800X480
     entertainment = new MenuItem[] {new MP3(mainState), new Radio(mainState), new Camera(mainState)};
     stats = new MenuItem[] {new System(mainState), new Calorie(mainState), new Weather(mainState)};
-    tools = new MenuItem[] {new Calendar(mainState), new Calculator(mainState), new Checklist(mainState), new Flashlight(mainState), new Map(mainState)};
-    statsMode         = new Button(new Point(75, 400),  new Point(250, 440), "Stats", 24);
-    toolsMode         = new Button(new Point(300, 400), new Point(475, 440), "Tools", 24);
-    entertainmentMode = new Button(new Point(525, 400), new Point(700, 440), "Entertainment", 24);
+    tools = new MenuItem[] {/*new Calendar(mainState), */new Calculator(mainState), new Checklist(mainState), new Flashlight(mainState), /*new Map(mainState)*/};
+
+    statsMode         = new Button(new Point(75, 400),  new Point(250, 440), "Stats", 24, menuCategoryButtons);
+    toolsMode         = new Button(new Point(300, 400), new Point(475, 440), "Tools", 24, menuCategoryButtons);
+    entertainmentMode = new Button(new Point(525, 400), new Point(700, 440), "Entertainment", 24, menuCategoryButtons);
 
     subCategoryRight  = new Button(new Point(800 - 50, 100), new Point(800, 400), ">>", 24, 1);
     subCategoryLeft   = new Button(new Point(0, 100), new Point(50, 400), "<<", 24, 1);
@@ -74,8 +77,6 @@ class UI {
       } else if (subCategoryLeft.wasClicked(mainState.getClick().getX(), mainState.getClick().getY())) {
          mainState.updatePageIndex(LEFT);
       }
-      //check if UI buttons got clicked.
-      //need UI buttons
     }
 //    800 X 480
 

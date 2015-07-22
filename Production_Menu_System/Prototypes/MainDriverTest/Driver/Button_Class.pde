@@ -26,6 +26,15 @@ class Button {
     f = createFont("Arial",textSize,true);
   }
 
+  Button(Point topLeft, Point bottomRight, String text, int textSize, PImage pic) {
+    this.topLeft = topLeft;
+    this.bottomRight = bottomRight;
+    this.innerText = text;
+    this.textSize = textSize;
+    this.pic = pic;
+    f = createFont("Arial",textSize,true);
+  }
+
   Button(Point topLeft, Point bottomRight, String text, int textSize, int options) {
     this.topLeft = topLeft;
     this.bottomRight = bottomRight;
@@ -81,6 +90,7 @@ class Button {
       }
       text(innerText, ((topLeft.getX() + bottomRight.getX()) / 2) - (innerText.length() * textSize / 4), ((topLeft.getY() + bottomRight.getY()) / 2) + textSize /2);
     }
+    strokeWeight(0);
   }
   
   

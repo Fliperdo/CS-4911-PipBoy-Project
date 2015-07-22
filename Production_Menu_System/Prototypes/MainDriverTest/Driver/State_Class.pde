@@ -218,6 +218,9 @@ class State {
   void prevSong() {
     songs[currentSong % songs.length].pause();
     currentSong--;
+    if (currentSong < 0) {
+      currentSong = songs.length - 1;
+    }
     songs[currentSong % songs.length].rewind();    
     songs[currentSong % songs.length].play();    
   }

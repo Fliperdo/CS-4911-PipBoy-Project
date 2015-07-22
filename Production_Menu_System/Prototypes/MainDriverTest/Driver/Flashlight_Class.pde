@@ -14,28 +14,31 @@ class Flashlight implements MenuItem {
   Button[] allButtons;
   Button partyMode;
   
+  PImage pic = loadImage("Calc Button Large.jpg");
+  PImage pic2 = loadImage("Big Calc Button.jpg");
+  
   Flashlight(State mainState) {
     hello = "hello from Flashlight.display();";
     this.mainState = mainState;
-    int buttonSize = 50;
+    int buttonSize = 100;
     int bS = buttonSize;
-    int buttonOriginX = 50;
+    int buttonOriginX = 140;
     int bOX = buttonOriginX;
-    int buttonOriginY = 50;
+    int buttonOriginY = 105;
     int bOY = buttonOriginY;
     int columnDiff = 50;
-    lightOn =        new Button(new Point(bOX + bS * 0, bOY + bS * 0), new Point(bOX + bS * 1, bOY + bS * 1), "Vol+");
-    lightOff =      new Button(new Point(bOX + bS * 0, bOY + bS * 1), new Point(bOX + bS * 1, bOY + bS * 2), "Vol-");
-    brightnessUp =    new Button(new Point(bOX + bS * 1, bOY + bS * 0), new Point(bOX + bS * 2, bOY + bS * 1), "Bright+");
-    brightnessDown =  new Button(new Point(bOX + bS * 1, bOY + bS * 1), new Point(bOX + bS * 2, bOY + bS * 2), "Bright-");
-    redUp =           new Button(new Point(bOX + bS * 2, bOY + bS * 0), new Point(bOX + bS * 3, bOY + bS * 1), "R+");
-    redDown =         new Button(new Point(bOX + bS * 2, bOY + bS * 1), new Point(bOX + bS * 3, bOY + bS * 2), "R-");
-    greenUp =         new Button(new Point(bOX + bS * 3, bOY + bS * 0), new Point(bOX + bS * 4, bOY + bS * 1), "G+");
-    greenDown =       new Button(new Point(bOX + bS * 3, bOY + bS * 1), new Point(bOX + bS * 4, bOY + bS * 2), "G-");
-    blueUp =          new Button(new Point(bOX + bS * 4, bOY + bS * 0), new Point(bOX + bS * 5, bOY + bS * 1), "B+");
-    blueDown =        new Button(new Point(bOX + bS * 4, bOY + bS * 1), new Point(bOX + bS * 5, bOY + bS * 2), "B-");
+    lightOn =        new Button(new Point(bOX + bS * 0, bOY + bS * 0), new Point(bOX + bS * 1, bOY + bS * 1), "Vol+", pic);
+    lightOff =      new Button(new Point(bOX + bS * 0, bOY + bS * 1), new Point(bOX + bS * 1, bOY + bS * 2), "Vol-", pic);
+    brightnessUp =    new Button(new Point(bOX + bS * 1, bOY + bS * 0), new Point(bOX + bS * 2, bOY + bS * 1), "Bright+", pic);
+    brightnessDown =  new Button(new Point(bOX + bS * 1, bOY + bS * 1), new Point(bOX + bS * 2, bOY + bS * 2), "Bright-", pic);
+    redUp =           new Button(new Point(bOX + bS * 2, bOY + bS * 0), new Point(bOX + bS * 3, bOY + bS * 1), "R+", pic);
+    redDown =         new Button(new Point(bOX + bS * 2, bOY + bS * 1), new Point(bOX + bS * 3, bOY + bS * 2), "R-", pic);
+    greenUp =         new Button(new Point(bOX + bS * 3, bOY + bS * 0), new Point(bOX + bS * 4, bOY + bS * 1), "G+", pic);
+    greenDown =       new Button(new Point(bOX + bS * 3, bOY + bS * 1), new Point(bOX + bS * 4, bOY + bS * 2), "G-", pic);
+    blueUp =          new Button(new Point(bOX + bS * 4, bOY + bS * 0), new Point(bOX + bS * 5, bOY + bS * 1), "B+", pic);
+    blueDown =        new Button(new Point(bOX + bS * 4, bOY + bS * 1), new Point(bOX + bS * 5, bOY + bS * 2), "B-", pic);
     
-    partyMode =       new Button(new Point(300, 300), new Point(350, 350), "Party");
+    partyMode =       new Button(new Point(337, 325), new Point(438, 375), "Party!", pic2);
     
     allButtons = new Button[] {lightOn, lightOff, brightnessUp, brightnessDown, redUp, redDown, greenUp, greenDown, blueUp, blueDown, partyMode};
   }

@@ -8,22 +8,24 @@ class Calorie implements MenuItem {
   Button plus10;
   Button plus100;
   Button minus10;
+  PImage calorieButtons = loadImage("calorieButtons.jpg");
+  PImage radioButtons = loadImage("radioButtons.jpg");
   
   Calorie(State mainState) {
     hello = "hello from Calorie.display();";
     this.mainState = mainState;
-    f = createFont( "Georgia" ,16,true);
+    f = createFont( "Arial" ,16,true);
     textFont(f);
     fill(0);
-    int TLX = 100;
-    int TLY = 350;
+    int TLX = 70;
+    int TLY = 325;
     int bO = 160;
     int buttonTextSize = 30;
     int buttonWidth = 150;
-    plus10 = new Button(new Point(TLX, TLY), new Point(TLX + buttonWidth,TLY + 50), "+10 Cals", buttonTextSize);
-    plus50 = new Button(new Point(TLX + bO, TLY), new Point(TLX + buttonWidth + bO, TLY + 50), "+50 Cals", buttonTextSize);
-    plus100 = new Button(new Point(TLX + 2 * bO, TLY), new Point(TLX + buttonWidth + 2 * bO, TLY + 50), "+100 Cals", buttonTextSize);
-    minus10 = new Button(new Point(TLX + 3 * bO, TLY), new Point(TLX + buttonWidth + 3 * bO, TLY + 50), "-10 Cals", buttonTextSize);
+    plus10 = new Button(new Point(TLX, TLY), new Point(TLX + buttonWidth,TLY + 50), "+10 Cals", buttonTextSize, calorieButtons);
+    plus50 = new Button(new Point(TLX + bO, TLY), new Point(TLX + buttonWidth + bO, TLY + 50), "+50 Cals", buttonTextSize, calorieButtons);
+    plus100 = new Button(new Point(TLX + 2 * bO, TLY), new Point(TLX + buttonWidth + 2 * bO, TLY + 50), "+100 Cals", buttonTextSize, calorieButtons);
+    minus10 = new Button(new Point(TLX + 3 * bO, TLY), new Point(TLX + buttonWidth + 3 * bO, TLY + 50), "-10 Cals", buttonTextSize, calorieButtons);
 
     //
     //
@@ -40,7 +42,7 @@ class Calorie implements MenuItem {
 //    println(hello);
     steps = mainState.getStepCount();
     textSize(40);
-    text("Your step count is: " + steps, 100,300);
+    text("Your step count is: " + steps, 100,275);
     text("Your calories burnt are: " + mainState.getCalories(), 100, 200);
     plus50.drawButton();
     plus100.drawButton();
